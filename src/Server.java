@@ -36,12 +36,17 @@ class Server {
 			for(int i=0; i<sendData.length; i++){
 				sendData[i]=' ';
 			}
+			//RECEIVING PACKET HERE!
 			DatagramPacket receivePacket = 
 					new DatagramPacket(receiveData, receiveData.length); 
 			serverSocket.receive(receivePacket); 
 			String sentence = new String(receivePacket.getData()); 
+			
+			//figure out how to display video on web browser.
+			
 			System.out.println(sentence);
 			
+			//gets the port and address that sent the packet
 			InetAddress IPAddress = receivePacket.getAddress(); 	
 			int port = receivePacket.getPort(); 
 		   
@@ -51,6 +56,8 @@ class Server {
 				identification++;
 				String send = "P: ID ["+identification+"]";
 				System.out.println(send);
+				
+				//send data back using IPAddress (above) and pre-defined port num.
 				sendData = send.getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, ANDROID_SEND_PORT);
 				
